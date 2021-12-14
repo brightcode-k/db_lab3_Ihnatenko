@@ -1,3 +1,7 @@
+DROP TABLE IF EXISTS scoring_copy;
+
+SELECT * INTO TABLE scoring_copy FROM scoring;
+
 DO $$
 DECLARE
     math_score scoring.math_score%TYPE;
@@ -11,9 +15,9 @@ BEGIN
     stud_id := 7;
     FOR counter IN 1..10
         LOOP
-            INSERT INTO scoring(math_score,reading_score,writing_score,stud_id)
+            INSERT INTO scoring_copy(math_score,reading_score,writing_score,stud_id)
             VALUES (counter + math_score, counter + reading_score, counter + writing_score, stud_id + counter);
         END LOOP;
 END;
 $$
-SELECT * FROM scoring
+SELECT * FROM scoring_copy
